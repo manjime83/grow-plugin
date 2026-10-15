@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "grow": {
+    "Grow": {
       "type": "http",
       "url": "https://grow.nimbusit.us/mcp"
     }
