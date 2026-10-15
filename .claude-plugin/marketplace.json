@@ -1,0 +1,14 @@
+{
+  "name": "grow",
+  "owner": {
+    "name": "Manuel Jiménez"
+  },
+  "description": "Grow skills and connector for Claude.",
+  "plugins": [
+    {
+      "name": "grow",
+      "description": "Routines, SMART goals and mentors through the Grow connector.",
+      "source": "./plugins/grow"
+    }
+  ]
+}
