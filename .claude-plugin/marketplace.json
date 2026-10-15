@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "grow",
-      "description": "Routines, SMART goals and mentors through the Grow connector.",
+      "description": "SMART goals, next tasks and mentors through the Grow connector.",
       "source": "./plugins/grow"
     }
   ]
