@@ -1,7 +1,6 @@
 ---
 name: grow-schedule
 description: Schedule /grow to run on its own, as a Claude scheduled task.
-disable-model-invocation: true
 ---
 
 Set up a Claude scheduled task that runs `/grow`, so the user gets their next task without asking. Grow stores no schedule: the scheduled task lives in the user's Claude. Ask one question per message, each with a concrete proposal the user can accept with "yes" ("I'd run it on weekdays at 8:00. Right?").

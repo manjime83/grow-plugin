@@ -1,7 +1,6 @@
 ---
 name: grow-goal
 description: Set up a SMART goal in Grow through an interview, with its done-when, scoreboard, projects and first tasks.
-disable-model-invocation: true
 ---
 
 Run an interview: one question per message, each with a concrete proposal the user can accept with "yes" ("I'd track MRR in USD, from $1,200 today to $5,000 by 31 March. Right?"). Nothing is saved until the user approves the whole plan in step 8.
@@ -46,7 +45,7 @@ Infer the area from what the user said: an existing area from `list_areas`, or a
 
 ## 5. Rank it
 
-The user's goals are ranked 1, 2, 3…, and Next Task favours higher-ranked goals. From `list_goals`, show where the goal would sit among their goals and propose a rank ("I'd put it 2nd, after Grow MRR. Right?"). With no other goals it's 1st. The step is done when the user accepts a rank.
+The user's goals are ranked 1, 2, 3…, and Next Task favours higher-ranked goals. Only the top three open goals are active; the rest wait until they move up. From `list_goals`, show where the goal would sit among their goals and propose a rank ("I'd put it 2nd, after Grow MRR. Right?"). With no other goals it's 1st. When the rank leaves the new goal waiting, or pushes an active goal out of the top three, say which goal waits. The step is done when the user accepts a rank.
 
 ## 6. Group the work
 
