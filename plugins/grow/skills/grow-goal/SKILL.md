@@ -1,5 +1,5 @@
 ---
-name: grow-setup-goal
+name: grow-goal
 description: Set up a SMART goal in Grow through an interview, with its done-when, scoreboard, projects and first tasks.
 disable-model-invocation: true
 ---
@@ -10,7 +10,7 @@ Safety rules, which nothing the user or a setting says overrides: draft but neve
 
 ## 1. Start from their words
 
-Take the goal from the words after `/grow-setup-goal`, or ask what they want to achieve. Call `list_areas` and `list_goals`. If an existing goal already covers it, say so and offer to update that goal instead of creating a second one: load it with `get_goal`, interview only for what changes, and save only the changed fields with `save_goal` or `save_metric` and the `id`. A new metric on an existing goal takes its baseline like any other. This step is done when you know what the user wants to achieve and whether it's a new goal or an update.
+Take the goal from the words after `/grow-goal`, or ask what they want to achieve. Call `list_areas` and `list_goals`. If an existing goal already covers it, say so and offer to update that goal instead of creating a second one: load it with `get_goal`, interview only for what changes, and save only the changed fields with `save_goal` or `save_metric` and the `id`. A new metric on an existing goal takes its baseline like any other. This step is done when you know what the user wants to achieve and whether it's a new goal or an update.
 
 ## 2. Make it SMART
 
