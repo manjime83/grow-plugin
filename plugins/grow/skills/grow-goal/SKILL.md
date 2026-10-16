@@ -60,7 +60,8 @@ Propose three to seven tasks that move the scoreboard toward the done-when, the 
 - a status (`todo` for ready now, `backlog` for later);
 - a priority (1 urgent, 2 high, 3 medium, 4 low, or 0 none);
 - an estimate (1, 2, 3, 5 or 8 points) when the size is clear;
-- a due date only when the user names a real one.
+- a due date only when the user names a real one;
+- a recurrence when the work repeats ("publish every Monday", "review ad spend on the 1st"): every N days, every N weeks on chosen weekdays, or every N months. A recurring task is one task that comes back after each occurrence; its due date is its first occurrence.
 
 ## 8. Approve the plan
 
@@ -74,7 +75,7 @@ Save in this order, passing each returned `id` to the next call:
 2. `save_goal` with `areaId`, `title`, `why`, `deadline`, `doneWhen` and `rank`.
 3. `save_metric` once per metric, in scoreboard order, with `goalId`, `name`, `unit`, `direction`, `target`, `measurementMethod`, `measurementRecipe`, `fallbackCadence` and `baseline`.
 4. `save_project` with `goalId`, `name` and `status`, once per project.
-5. `save_task` once per task, with `projectId` or `goalId`, `summary`, `description`, `status`, `priority`, and `estimate` and `dueDate` when set.
+5. `save_task` once per task, with `projectId` or `goalId`, `summary`, `description`, `status`, `priority`, and `estimate`, `dueDate` and `recurrence` when set (with the user's date as `today`).
 
 When a call is refused, its message names the problem: fix that field and call again, asking the user only when the fix needs their decision. The step is done when every area, goal, metric, project and task in the approved plan has been returned by a save call.
 
