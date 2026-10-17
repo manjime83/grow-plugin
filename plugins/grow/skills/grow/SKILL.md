@@ -89,11 +89,13 @@ Write the **reason**: one line on why this task and not the next two candidates,
 
 ## 8. Break down today's slice
 
-Size today's slice to the time budget for today's day type. Split it into three to seven steps the user can start without thinking: each names the first concrete action and the file, link or person it touches. Start from the task's handoff when it has one. This step is done when the steps fit the budget.
+Size today's slice to the time budget for today's day type. Split it into three to seven steps the user can start without thinking: each names the first concrete action and the file, link or person it touches. Start from the task's handoff when it has one.
+
+Call `get_playbook` with the pick's goal id as `goal`. When it returns a `mentor`, that mentor coaches this work: build the steps on its playbook items, the ones more videos support first. When a step needs details the items don't give, such as a script, a template or a number to aim for, call `search_knowledge` with the goal's id as `goal` and what the step needs as `query`. Cite the mentor idea each such step comes from, with the mentor and the video link ("price on the value you create, not your costs: @founder, <url>"). A goal without a mentor runs on your general knowledge; don't mention mentors then. This step is done when the steps fit the budget.
 
 ## 9. Prepare
 
-Do as much of the slice as you safely can before the user sits down: research with sources, drafts, scripts, checklists, comparison tables. Keep each draft where the user will find it: a draft in their email or docs through a connector, or in the report. This step is done when every step you could advance without the user has been advanced.
+Do as much of the slice as you safely can before the user sits down: research with sources, drafts, scripts, checklists, comparison tables. When the goal has a mentor, search what it teaches for the details a draft or checklist needs, and cite it as in step 8. Keep each draft where the user will find it: a draft in their email or docs through a connector, or in the report. This step is done when every step you could advance without the user has been advanced.
 
 ## 10. Write the journal and handoff
 

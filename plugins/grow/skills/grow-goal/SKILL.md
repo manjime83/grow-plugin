@@ -53,7 +53,13 @@ Create a project when several tasks form one body of work ("Launch the course", 
 
 ## 7. Propose the first tasks
 
-Propose three to seven tasks that move the scoreboard toward the done-when, the first one startable today. Each has:
+Propose three to seven tasks that move the scoreboard toward the done-when, the first one startable today.
+
+First, the goal's **mentor**: at most one YouTube channel that coaches it. Call `list_mentors`. When one fits the goal, propose it from its title and description ("I'd have @founder coach this goal: they teach pricing for service businesses. Right?"); when none fits, say the goal runs on general knowledge. For an existing goal, `get_goal` shows its current `mentor`: offer to keep it, change it or remove it.
+
+With a mentor, call `get_playbook` with the goal's id as `goal` (for a new goal, `search_knowledge` with the mentor's handle as `mentor`) for what the mentor teaches, and `search_knowledge` again when a task needs details. Base the tasks on what it teaches, and cite the mentor idea each task comes from in its description, with the mentor and the video link ("From @founder: price on the value you create, <url>"). A goal without a mentor runs on your general knowledge; don't mention mentors then.
+
+Each task has:
 
 - a summary and a one- or two-line description;
 - a parent: a project from step 6, or the goal;
@@ -65,14 +71,14 @@ Propose three to seven tasks that move the scoreboard toward the done-when, the 
 
 ## 8. Approve the plan
 
-Show the whole plan in one message: area; goal with its title, why, deadline, done-when and rank; the scoreboard, each metric with its baseline, target, direction, method, recipe and cadence; projects; and tasks grouped under their parent. Apply the user's changes and show it again until they approve it.
+Show the whole plan in one message: area; goal with its title, why, deadline, done-when, rank and mentor; the scoreboard, each metric with its baseline, target, direction, method, recipe and cadence; projects; and tasks grouped under their parent. Apply the user's changes and show it again until they approve it.
 
 ## 9. Save
 
 Save in this order, passing each returned `id` to the next call:
 
 1. `save_area` with `name`, only for a new area.
-2. `save_goal` with `areaId`, `title`, `why`, `deadline`, `doneWhen` and `rank`.
+2. `save_goal` with `areaId`, `title`, `why`, `deadline`, `doneWhen` and `rank`, and `mentor` (its handle) when the plan has one. On an update, pass `mentor` only to change it, or `null` to remove it.
 3. `save_metric` once per metric, in scoreboard order, with `goalId`, `name`, `unit`, `direction`, `target`, `measurementMethod`, `measurementRecipe`, `fallbackCadence` and `baseline`.
 4. `save_project` with `goalId`, `name` and `status`, once per project.
 5. `save_task` once per task, with `projectId` or `goalId`, `summary`, `description`, `status`, `priority`, and `estimate`, `dueDate` and `recurrence` when set (with the user's date as `today`).
@@ -81,4 +87,4 @@ When a call is refused, its message names the problem: fix that field and call a
 
 ## 10. Report
 
-Tell the user, in a few lines, what was saved: the goal with its done-when, deadline and rank, the scoreboard with each metric's baseline, target and how it's measured, and each project and task under its parent. Name anything that couldn't be saved, with the reason.
+Tell the user, in a few lines, what was saved: the goal with its done-when, deadline, rank and mentor, the scoreboard with each metric's baseline, target and how it's measured, and each project and task under its parent. Name anything that couldn't be saved, with the reason.
