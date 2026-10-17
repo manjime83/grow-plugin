@@ -25,7 +25,7 @@ Interview the user, one question per message, each with a concrete proposal they
 
 - **Time budget** per day type.
 - **Language and report style**.
-- **Where tasks come from**: only Grow, or also an external tracker their Claude has a connector for ("Linear team OMA, excluding project Road to 10K MRR"), and which goal its issues serve.
+- **Where tasks come from**: only Grow, or also an external tracker their client has a connector for ("Linear team OMA, excluding project Road to 10K MRR"), and which goal its issues serve.
 - **Focus and day rules** ("only personal tasks on weekends", "favour MRR this month").
 
 Save each accepted answer with `save_standing_decision`, `text` in the user's words and `createdBy: "user"`. This step is done when every topic has a saved decision or the user declined it. Then tell them `/grow-schedule` can run `/grow` on its own, and that two tasks a day means two schedules. Carry on: they ran `/grow` for a task.
@@ -69,7 +69,7 @@ The question's task stays as it is until the user answers, and today's pick come
 
 ## 7. Pick one task
 
-Call `list_eligible_tasks` with the user's date as `today`. It lists a recurring task only once its occurrence is due. When a standing decision names an external tracker, also read its open issues through Claude's connector for that tracker, within the decision's limits. When the previous pick continues, it's today's pick: compare it with the candidates only to write the reason.
+Call `list_eligible_tasks` with the user's date as `today`. It lists a recurring task only once its occurrence is due. When a standing decision names an external tracker, also read its open issues through the client's connector for that tracker, within the decision's limits. When the previous pick continues, it's today's pick: compare it with the candidates only to write the reason.
 
 Otherwise choose exactly one task, weighing these together, the first counting most:
 

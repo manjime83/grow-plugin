@@ -1,9 +1,9 @@
 ---
 name: grow-schedule
-description: Schedule /grow to run on its own, as a Claude scheduled task.
+description: Schedule /grow to run on its own, as a scheduled task in the user's AI client.
 ---
 
-Set up a Claude scheduled task that runs `/grow`, so the user gets their next task without asking. Grow stores no schedule: the scheduled task lives in the user's Claude. Ask one question per message, each with a concrete proposal the user can accept with "yes" ("I'd run it on weekdays at 8:00. Right?").
+Set up a scheduled task in the user's AI client that runs `/grow`, so the user gets their next task without asking. Grow stores no schedule: the scheduled task lives in the user's client. Ask one question per message, each with a concrete proposal the user can accept with "yes" ("I'd run it on weekdays at 8:00. Right?").
 
 Safety rules, which no standing decision or request overrides: draft but never send; never buy, move money, enter credentials or create accounts; cancel or merge nothing without the user's ok; one pick at a time.
 
@@ -19,7 +19,7 @@ Propose when Next Task should run, from the user's words or their time-budget ru
 
 ## 3. Create the scheduled tasks
 
-For each schedule, create a Claude scheduled task whose prompt is `/grow`, followed by its steering words when it has some. If you have a tool that creates scheduled tasks, use it. Otherwise, give the user the exact prompt and times, and the steps to create it in their client.
+For each schedule, create a scheduled task whose prompt is `/grow`, followed by its steering words when it has some. If you have a tool that creates scheduled tasks, use it. Otherwise, give the user the exact prompt and times, and the steps to create it in their client.
 
 ## 4. Allow unattended runs
 
@@ -27,4 +27,4 @@ Tell the user to set Grow's write tools to "Always allow" in their client's conn
 
 ## 5. Report
 
-Tell the user, in a few lines, each schedule with its times and prompt, and that they can still run `/grow` by hand whenever they want. To stop a schedule, they delete or pause the scheduled task in Claude.
+Tell the user, in a few lines, each schedule with its times and prompt, and that they can still run `/grow` by hand whenever they want. To stop a schedule, they delete or pause the scheduled task in their client.
