@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "grow",
+  "description": "SMART goals, next tasks and mentors through the Grow connector.",
+  "author": {
+    "name": "Manuel Jiménez"
+  },
+  "homepage": "https://grow.nimbusit.us",
+  "version": "0.1.0-3525ea38c92c"
+}
