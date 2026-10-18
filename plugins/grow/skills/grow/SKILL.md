@@ -122,7 +122,7 @@ Call `finish_run` with the run's `id`, a summary of a few plain sentences that n
 
 Write a short report in the user's language and report style, readable in under a minute:
 
-- today's task, its goal, and the reason;
+- today's task by its identifier and summary ("G-12 Interview 5 subscribers"), its goal, and the reason;
 - the steps of today's slice;
 - what you prepared, and where it is;
 - the question from step 12, if any.

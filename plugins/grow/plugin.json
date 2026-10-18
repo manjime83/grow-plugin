@@ -6,7 +6,7 @@
     "name": "Manuel Jiménez"
   },
   "homepage": "https://grow.nimbusit.us",
-  "version": "0.1.0-f665063dd821",
+  "version": "0.1.0-1fe7f19453da",
   "extensions": {
     "com.openai": {
       "interface": {
