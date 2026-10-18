@@ -6,13 +6,13 @@
     "name": "Manuel Jiménez"
   },
   "homepage": "https://grow.nimbusit.us",
-  "version": "0.1.0-a8b0e776efca",
+  "version": "0.1.0-f90ad8c0fc15",
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Grow",
         "shortDescription": "Goals, next tasks and mentors",
-        "longDescription": "Grow keeps your SMART goals, their projects and tasks, and a scoreboard of readings for each goal. Each day it picks one next task across your ranked goals, breaks it into startable steps, and keeps a journal and handoff so the next session starts where you left off. Mentors are YouTube channels Grow learns from; their playbooks and transcripts can coach a goal. For people who plan their own work. Grow needs a Grow account with an active subscription or trial; it only sees the data you keep in Grow, and it never sends, buys or deletes anything outside Grow.",
+        "longDescription": "Grow keeps your SMART goals, their projects and tasks, and a scoreboard of readings for each goal. Each day it picks one next task across your ranked goals, breaks it into startable steps, and keeps a journal and handoff so the next session starts where you left off. Mentors are YouTube channels Grow learns from; their playbooks and transcripts can coach a goal. For people who plan their own work. Grow needs a Grow account; it only sees the data you keep in Grow, and it never sends, buys or deletes anything outside Grow.",
         "developerName": "Nimbus IT",
         "category": "Productivity",
         "capabilities": [],
@@ -26,6 +26,9 @@
           "What should I work on next?",
           "Help me set up a goal"
         ]
+      },
+      "publication": {
+        "release_notes": "First release of Grow: SMART goals with scoreboards, a daily next task across ranked goals, task journals and handoffs, history search and YouTube mentors."
       },
       "review": {
         "test_cases": {
