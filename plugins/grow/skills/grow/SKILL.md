@@ -50,22 +50,19 @@ Hold the outcome for step 13. This step is done when the previous pick has an ou
 Call `list_active_goals`. Each metric comes with its pace, which holds its latest reading. A metric is **due** when its latest reading is older than its fallback cadence, weekly when it has none. Measure each metric the way its method says:
 
 - `connector`: when you have the connector its recipe names and its latest reading is from an earlier day, follow the recipe and record the value with `record_reading`, `source: "connector"`, the connector's name as `sourceDetail`, and the link or query as `evidence`.
-- `infer`: when it's due, estimate it from the work logged on the goal's tasks and record it with `source: "inferred"`, citing those journal entries as `evidence`.
 - `ask`, or a `connector` metric you can't read: when it's due, it goes in the **weekly check-in**.
 
-The weekly check-in is one question: the value of each due metric, and a confirm-or-correct for each unconfirmed estimate (call `get_goal` for each active goal with an `infer` metric, and take the readings with `confirmed: false`). Ask it at most once per cadence: skip it when a recent run's summary says it was asked within the cadence.
+The weekly check-in is one question: the value of each due metric. Ask it at most once per cadence: skip it when a recent run's summary says it was asked within the cadence.
 
-After recording, call `list_active_goals` again when you recorded anything. When every metric of a goal has a confirmed latest reading whose pace is `met`, propose confirming the goal's done-when: "Your readings meet every target for X. Is it done: <done-when>?" Readings are evidence; only the user's yes achieves the goal.
+After recording, call `list_active_goals` again when you recorded anything. When every metric of a goal has a latest reading whose pace is `met`, propose confirming the goal's done-when: "Your readings meet every target for X. Is it done: <done-when>?" Readings are evidence; only the user's yes achieves the goal.
 
-This step is done when every metric you can read through a connector has a reading from today, every due `infer` metric has a new estimate, and you hold the check-in and the done-when proposal, or know there's none.
+This step is done when every metric you can read through a connector has a reading from today, and you hold the check-in and the done-when proposal, or know there's none.
 
 ## 6. Choose the cleanup question
 
-A run asks at most one **cleanup question**: keep, cancel, or merge one task into another. Call `list_cleanup_questions`. When any are pending, the oldest is this run's cleanup question, still waiting for the user's answer.
+A run asks at most one **cleanup question**: keep, cancel, or merge one task into another. Look in the recent runs for a task that deserves one: recorded `skipped` in three or more of them, the most skipped first. Propose a verdict with a one-line reason from its history: keep it, cancel it, or merge it into another task that covers the same work.
 
-Otherwise look in the recent runs for a task that deserves one: recorded `skipped` in three or more of them, the most skipped first. Propose a verdict with a one-line reason from its history: keep it, cancel it, or merge it into another task that covers the same work. Record it with `ask_cleanup_question`, passing `mergeIntoTaskId` for a merge.
-
-The question's task stays as it is until the user answers, and today's pick comes from the other tasks. When another question wins the report (step 12), the cleanup question stays pending for a later run. This step is done when you hold this run's cleanup question, or know there's none.
+Grow stores no question: the task stays as it is until the user answers, and today's pick comes from the other tasks. When another question wins the report (step 12), a later run that still finds the task skipped asks again. This step is done when you hold this run's cleanup question, or know there's none.
 
 ## 7. Pick one task
 
@@ -89,7 +86,7 @@ Write the **reason**: one line on why this task and not the next two candidates,
 
 ## 8. Break down today's slice
 
-Size today's slice to the time budget for today's day type. Split it into three to seven steps the user can start without thinking: each names the first concrete action and the file, link or person it touches. Start from the task's handoff when it has one.
+Size today's slice to the time budget for today's day type. Split it into three to seven steps the user can start without thinking: each names the first concrete action and the file, link or person it touches. Load the pick with `get_task` and start from its newest `progress` entry, where the last session left off: its "Next:" names the next step.
 
 Call `get_playbook` with the pick's goal id as `goal`. When it returns a `mentor`, that mentor coaches this work: build the steps on its playbook items, the ones more videos support first. When a step needs details the items don't give, such as a script, a template or a number to aim for, call `search_knowledge` with the goal's id as `goal` and what the step needs as `query`. Cite the mentor idea each such step comes from, with the mentor and the video link ("price on the value you create, not your costs: @founder, <url>"). A goal without a mentor runs on your general knowledge; don't mention mentors then. This step is done when the steps fit the budget.
 
@@ -97,9 +94,9 @@ Call `get_playbook` with the pick's goal id as `goal`. When it returns a `mentor
 
 Do as much of the slice as you safely can before the user sits down: research with sources, drafts, scripts, checklists, comparison tables. When the goal has a mentor, search what it teaches for the details a draft or checklist needs, and cite it as in step 8. Keep each draft where the user will find it: a draft in their email or docs through a connector, or in the report. This step is done when every step you could advance without the user has been advanced.
 
-## 10. Write the journal and handoff
+## 10. Write the journal
 
-Record what this run did with `log_task_entry`, passing the run's `id` as `runId`: `progress` for what you prepared, `decision` for a choice made, `blocker` for what stops the work. Then rewrite the task's handoff with `set_task_handoff`: where the task stands now and the first step of today's slice. This step is done when the pick has this run's entries and a new handoff.
+Record what this run did with `log_task_entry`, passing the run's `id` as `runId`: `decision` for a choice made, `blocker` for what stops the work, and last a `progress` entry for what you prepared, ending with "Next:" and the first step of today's slice, so the next session starts from it. This step is done when the pick has this run's entries and the last one is that progress entry.
 
 ## 11. Propose a standing decision
 
@@ -135,9 +132,9 @@ When you have a notification tool, send the report through it. Your final messag
 When the user answers the question in this chat, act on it:
 
 - the done-when proposal: on yes, `close_goal` with `status: "achieved"`;
-- the weekly check-in: `record_reading` with `source: "asked"` for each value they give, and `confirm_reading` for each estimate they confirm (with `value` when they correct it);
+- the weekly check-in: `record_reading` with `source: "asked"` for each value they give;
 - a goal they say they missed or gave up: `close_goal` with `status: "missed"` or `"dropped"`;
-- a cleanup question: `resolve_cleanup_question` with the question's `id` and `resolution: "ok"` when they accept the verdict, or `"changed"` with their corrected `verdict` (and `mergeIntoTaskId` for a merge), and a `note` when their answer adds anything;
+- a cleanup question: keep logs a `decision` entry on the task saying the user kept it; cancel sets its status to `canceled` with `save_task`; merge cancels it the same way and logs a `decision` entry on both tasks, "Merged into <other task>" and "Absorbed <task>";
 - a corrected settle: log it with `log_task_entry`;
 - a proposed standing decision they accept: `save_standing_decision` with `text`, `createdBy: "agent"` and `evidence` naming the run;
 - a standing decision they want changed: update it with `save_standing_decision`.

@@ -6,13 +6,13 @@
     "name": "Manuel Jiménez"
   },
   "homepage": "https://grow.nimbusit.us",
-  "version": "0.1.0-f90ad8c0fc15",
+  "version": "0.1.0-f665063dd821",
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Grow",
         "shortDescription": "Goals, next tasks and mentors",
-        "longDescription": "Grow keeps your SMART goals, their projects and tasks, and a scoreboard of readings for each goal. Each day it picks one next task across your ranked goals, breaks it into startable steps, and keeps a journal and handoff so the next session starts where you left off. Mentors are YouTube channels Grow learns from; their playbooks and transcripts can coach a goal. For people who plan their own work. Grow needs a Grow account; it only sees the data you keep in Grow, and it never sends, buys or deletes anything outside Grow.",
+        "longDescription": "Grow keeps your SMART goals, their projects and tasks, and a scoreboard of readings for each goal. Each day it picks one next task across your ranked goals, breaks it into startable steps, and keeps a journal so the next session starts where you left off. Mentors are YouTube channels Grow learns from; their playbooks and transcripts can coach a goal. For people who plan their own work. Grow needs a Grow account; it only sees the data you keep in Grow, and it never sends, buys or deletes anything outside Grow.",
         "developerName": "Nimbus IT",
         "category": "Productivity",
         "capabilities": [],
@@ -28,7 +28,7 @@
         ]
       },
       "publication": {
-        "release_notes": "First release of Grow: SMART goals with scoreboards, a daily next task across ranked goals, task journals and handoffs, history search and YouTube mentors."
+        "release_notes": "First release of Grow: SMART goals with scoreboards, a daily next task across ranked goals, task journals and YouTube mentors."
       },
       "review": {
         "test_cases": {
@@ -36,7 +36,7 @@
             {
               "description": "Sets up a SMART goal through a short interview.",
               "prompt": "Help me set up a goal to run a 10K by March.",
-              "tools_triggered": "list_areas, save_area, save_goal, save_metric",
+              "tools_triggered": "list_goals, save_goal, save_metric",
               "expected_behavior": "After a few questions, a goal with a done-when, a deadline and a scoreboard metric with its baseline."
             },
             {
@@ -46,10 +46,10 @@
               "expected_behavior": "One task picked across the active goals, with the reason and its first steps."
             },
             {
-              "description": "Logs progress on a task and rewrites its handoff.",
+              "description": "Logs progress on a task with the next step.",
               "prompt": "I finished the first draft of the proposal; log it on that task.",
-              "tools_triggered": "list_eligible_tasks, log_task_entry, set_task_handoff",
-              "expected_behavior": "A journal entry on the task and a handoff naming the next step."
+              "tools_triggered": "list_eligible_tasks, log_task_entry",
+              "expected_behavior": "A progress entry in the task's journal that ends with the next step."
             },
             {
               "description": "Records a reading on a goal's scoreboard.",
@@ -58,10 +58,10 @@
               "expected_behavior": "A reading on the goal's metric with its source and evidence, and the goal's pace."
             },
             {
-              "description": "Searches the user's own history.",
-              "prompt": "When did I last work on the tax package?",
-              "tools_triggered": "search_history",
-              "expected_behavior": "Matching journal entries and run summaries, best match first."
+              "description": "Says where the user left off on a task.",
+              "prompt": "Where did I leave off on the proposal?",
+              "tools_triggered": "list_eligible_tasks, get_task",
+              "expected_behavior": "The task's newest progress entry and the next step it names."
             }
           ],
           "negative": [

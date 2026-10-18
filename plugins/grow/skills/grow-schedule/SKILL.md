@@ -23,7 +23,7 @@ For each schedule, create a scheduled task whose prompt is `/grow`, followed by 
 
 ## 4. Allow unattended runs
 
-Tell the user to set Grow's write tools to "Always allow" in their client's connector settings (in Claude: the Grow connector's tool permissions). A scheduled run has no one to approve a tool call, so a tool that still asks is silently denied and the run can't record its pick, journal or handoff. Skip this step when the client doesn't let them set it.
+Tell the user to set Grow's write tools to "Always allow" in their client's connector settings (in Claude: the Grow connector's tool permissions). A scheduled run has no one to approve a tool call, so a tool that still asks is silently denied and the run can't record its pick or journal. Skip this step when the client doesn't let them set it.
 
 ## 5. Report
 
