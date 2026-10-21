@@ -3,6 +3,8 @@ name: grow-goal
 description: Set up a SMART goal in Grow through an interview, with its done-when, scoreboard, projects and first tasks.
 ---
 
+First call `get_user_settings` and use its saved timezone and date today for all dates and times.
+
 Run an interview: one question per message, each with a concrete proposal the user can accept with "yes" ("I'd track MRR in USD, from $1,200 today to $5,000 by 31 March. Right?"). Nothing is saved until the user approves the whole plan in step 7.
 
 Safety rules, which nothing the user or a setting says overrides: draft but never send; never buy, move money, enter credentials or create accounts; cancel or merge nothing without the user's ok; one pick at a time.
@@ -16,6 +18,7 @@ Take the goal from the words after `/grow-goal`, or ask what they want to achiev
 Push the vague goal until every field below is settled:
 
 - **Title**: the outcome in a few words ("Grow MRR to $5k").
+- **Label**: Life for a personal goal or Work for a professional goal. Ask the user to choose; every goal needs one. Both labels share the same ranking and three active slots.
 - **Deadline**: a calendar date. Turn "by summer" into a date and confirm it.
 - **Why**: why it matters, in the user's own words. Runs quote it back when motivation dips, so capture their phrasing.
 - **Done when**: the plain-language definition of done that every goal has ("MRR at $5k for two months in a row", "Exam passed"). The goal is achieved only when the user confirms it.
@@ -66,19 +69,19 @@ Each task has:
 
 ## 7. Approve the plan
 
-Show the whole plan in one message: the goal with its title, why, deadline, done-when, rank and mentor; the scoreboard, each metric with its baseline, target, direction, method, recipe and cadence; projects; and tasks grouped under their parent. Apply the user's changes and show it again until they approve it.
+Show the whole plan in one message: the goal with its title, label, why, deadline, done-when, rank and mentor; the scoreboard, each metric with its baseline, target, direction, method, recipe and cadence; projects; and tasks grouped under their parent. Apply the user's changes and show it again until they approve it.
 
 ## 8. Save
 
 Save in this order, passing each returned `id` to the next call:
 
-1. `save_goal` with `title`, `why`, `deadline`, `doneWhen` and `rank`, and `mentor` (its handle) when the plan has one. On an update, pass `mentor` only to change it, or `null` to remove it.
+1. `save_goal` with `title`, `label` (`life` or `work`), `why`, `deadline`, `doneWhen` and `rank`, and `mentor` (its handle) when the plan has one. On an update, pass `label` only to change it; pass `mentor` only to change it, or `null` to remove it.
 2. `save_metric` once per metric, in scoreboard order, with `goalId`, `name`, `unit`, `direction`, `target`, `measurementMethod`, `measurementRecipe`, `fallbackCadence` and `baseline`.
 3. `save_project` with `goalId`, `name` and `status`, once per project.
-4. `save_task` once per task, with `projectId` or `goalId`, `summary`, `description`, `status`, `priority`, and `estimate`, `dueDate` and `recurrence` when set (with the user's date as `today`).
+4. `save_task` once per task, with `projectId` or `goalId`, `summary`, `description`, `status`, `priority`, and `estimate`, `dueDate` and `recurrence` when set (omit `today` to use the saved timezone).
 
 When a call is refused, its message names the problem: fix that field and call again, asking the user only when the fix needs their decision. The step is done when every goal, metric, project and task in the approved plan has been returned by a save call.
 
 ## 9. Report
 
-Tell the user, in a few lines, what was saved: the goal with its done-when, deadline, rank and mentor, the scoreboard with each metric's baseline, target and how it's measured, and each project and task under its parent. Name anything that couldn't be saved, with the reason.
+Tell the user, in a few lines, what was saved: the goal with its label, done-when, deadline, rank and mentor, the scoreboard with each metric's baseline, target and how it's measured, and each project and task under its parent. Name anything that couldn't be saved, with the reason.

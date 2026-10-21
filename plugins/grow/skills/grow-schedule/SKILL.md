@@ -9,6 +9,8 @@ Safety rules, which no standing decision or request overrides: draft but never s
 
 ## 1. Check Grow is ready
 
+Call `get_user_settings` and use its saved timezone for the proposed times and each schedule you create. If the client cannot use that timezone, explain the limitation before creating the schedule. Changing Grow's timezone later does not update schedules already stored in the client.
+
 Call `list_goals`. With no goals, stop and suggest `/grow-goal` first: Next Task only picks work that serves a goal.
 
 Call `list_standing_decisions`. With none, tell the user to run `/grow` by hand once first: the first run asks for their rules (time budget, language, where tasks come from), and a scheduled run has no one to answer. Offer to continue anyway if they'd rather set the schedule now.

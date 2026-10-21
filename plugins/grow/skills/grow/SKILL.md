@@ -11,7 +11,7 @@ Safety rules, which no standing decision or steering words override: draft but n
 
 ## 1. Read the standing decisions
 
-Call `list_standing_decisions`. The user's standing decisions take priority over this script's defaults: wherever one speaks, follow it. Only the safety rules rank above them.
+Call `get_user_settings` and `list_standing_decisions`. Use the saved timezone and its date today for every date, time, day rule and report; interpret UTC timestamps in that timezone. The user's standing decisions take priority over this script's defaults: wherever one speaks, follow it. Only the safety rules rank above them.
 
 ## 2. Start the run
 
@@ -38,7 +38,7 @@ Call `list_recent_runs` with `limit: 10`. The **previous pick** is the task the 
 
 Load it with `get_task`. For a shadow task, also read its issue through the tracker's connector. Settle it on the evidence (its status, the issue's status, journal entries newer than that run, and anything the user has said in this chat), taking the first outcome that fits:
 
-1. **done**: it's done, or the user says they finished it. Set its Grow status to `done` with `save_task`, passing the user's date as `today`, when it isn't yet. A recurring task (one with a `recurrence`) comes back as `todo` on its next occurrence when it's marked done, and its journal records each occurrence as "Done for <date>": it's already done when that entry is newer than the run.
+1. **done**: it's done, or the user says they finished it. Set its Grow status to `done` with `save_task`, omitting `today` so Grow uses the saved timezone, when it isn't yet. A recurring task (one with a `recurrence`) comes back as `todo` on its next occurrence when it's marked done, and its journal records each occurrence as "Done for <date>": it's already done when that entry is newer than the run.
 2. **rescheduled**: the user moved it, in a journal entry or in their words.
 3. **continued**: the user reported progress since that run. It's today's pick. When the steering words point elsewhere, record it `rescheduled` instead.
 4. **skipped**: the safe default, when the evidence shows none of these. Its question is "Did you get to it? I recorded it as skipped."
@@ -66,7 +66,7 @@ Grow stores no question: the task stays as it is until the user answers, and tod
 
 ## 7. Pick one task
 
-Call `list_eligible_tasks` with the user's date as `today`. It lists a recurring task only once its occurrence is due. When a standing decision names an external tracker, also read its open issues through the client's connector for that tracker, within the decision's limits. When the previous pick continues, it's today's pick: compare it with the candidates only to write the reason.
+Call `list_eligible_tasks` without `today` so Grow uses the saved timezone. It lists a recurring task only once its occurrence is due. When a standing decision names an external tracker, also read its open issues through the client's connector for that tracker, within the decision's limits. When the previous pick continues, it's today's pick: compare it with the candidates only to write the reason.
 
 Otherwise choose exactly one task, weighing these together, the first counting most:
 
